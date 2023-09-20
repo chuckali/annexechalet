@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Gallery</title>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            max-width: 100%;
+            padding: 20px;
+        }
+
+        .section {
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            padding: 20px;
+        }
+
+        .image-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+        }
+
+        .image-item {
+            flex-basis: calc(25% - 20px);
+            margin: 10px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .image-item img {
+            max-width: 100%;
+            height: auto;
+            transition: transform 0.2s;
+        }
+
+
+
+        /* CSS for image enlargement */
+        .enlarged {
+            position: absolute;
+            /* Change from fixed to absolute */
+            top: 50%;
+            /* Center vertically */
+            left: 50%;
+            /* Center horizontally */
+            transform: translate(-50%, -50%);
+            /* Center the element */
+
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .enlarged img {
+            cursor: pointer;
+            max-width: 100%;
+            /* Allow the image to be smaller if the viewport is narrow */
+            max-height: 100%;
+            /* Allow the image to be smaller if the viewport is short */
+        }
+
+        /* CSS for the modal */
+        .modal {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* CSS for the modal content */
+        .modal-content {
+    width: 100%; /* Set to 100% of the screen width */
+    max-height: 100%; /* Set to 100% of the screen height */
+    overflow: auto;
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+
+}
+        /* CSS for the modal image */
+        .modal img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            /* Maintain aspect ratio while fitting within the container */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="section">
+        <h1 class="section-title">Projet annexation garage</h1>
+        <p style="font-size: 36px;">
+           Le projet a pour but d'annexer le garage à la maison en reliant les 2 batiments par une section de 2m x 4.4m. Cela comprend étanchéiser le toit, 
+           ajouter des pilotis sous le plancher, faire les murs (avec portes et fenêtres), et isoler le tout.
+        </p>
+    </div>
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <img id="enlargedImage" src="" alt="Enlarged Image" class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="section">
+            <h1 class="section-title">Vue d'ensemble et dimensions</h1>
+            <div class="image-grid">
+                <!-- Images for the first section -->
+                <div class="image-item">
+                    <img src="1vuecotelac.png" alt="Image 1">
+                </div>
+                <div class="image-item">
+                    <img src="2vuecoterue.png" alt="Image 2">
+                </div>
+                <div class="image-item">
+                    <img src="3vueensembleannexe.png" alt="Image 3">
+                </div>
+                <div class="image-item">
+                    <img src="4dimensions.png" alt="Image 4">
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <h1 class="section-title">Toit et sous-sol de l'Annexe</h1>
+            <div class="image-grid">
+                <!-- Images for the fifth section -->
+                <div class="image-item">
+                    <img src="5toitannexe1.png" alt="Image 5">
+                </div>
+                <div class="image-item">
+                    <img src="6toitannexe2.png" alt="Image 6">
+                </div>
+                <div class="image-item">
+                    <img src="7dessous1.png" alt="Image 7">
+                </div>
+                <div class="image-item">
+                    <img src="8dessous2.png" alt="Image 8">
+                </div>
+            </div>
+        </div>
+     
+
+        <div class="section">
+            <h1 class="section-title">Vue 3D</h1>
+            <div class="image-grid">
+                <!-- Embed a link in the third section -->
+                <div class="image-item">
+                    <a href="https://poly.cam/capture/db4ff384-dc44-46e4-a256-e83cea2bed48" target="_blank">View 3D
+                        Model</a>
+                </div>
+                <!-- You can add more links here if needed -->
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- JavaScript to handle image enlargement -->
+    <script>
+const images = document.querySelectorAll('.image-item img');
+const modal = document.getElementById('imageModal');
+const modalImage = document.getElementById('enlargedImage');
+
+images.forEach((image) => {
+    image.addEventListener('click', () => {
+        const imageUrl = image.getAttribute('src');
+        modalImage.setAttribute('src', imageUrl);
+        modal.classList.add('active'); // Show the modal
+        window.scrollTo(0, 0); // Scroll to the top of the page
+    });
+});
+
+modal.addEventListener('click', () => {
+    modal.classList.remove('active'); // Hide the modal
+});
+    </script>
+
+</body>
+
+</html>
